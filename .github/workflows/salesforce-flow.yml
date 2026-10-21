@@ -2,10 +2,10 @@ name: 🌌 SALESFORCE PLAYWRIGHT OPS
 
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
     types: [opened, synchronize, reopened]
   push:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 # Batalkan run lama yang sudah kedaluwarsa saat ada commit baru di PR yang sama.

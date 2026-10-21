@@ -36,10 +36,7 @@ export class LoginPage extends BasePage {
   }
 
   async login(data: LoginData): Promise<void> {
-    await test.step('Buka halaman login', async () => {
-      await this.page.goto(this.loginUrl);
-      await expect(this.page).toHaveURL(this.loginUrl);
-    });
+    await this.goto();
 
     await test.step(`Login sebagai ${data.email}`, async () => {
       await expect(this.emailInput).toBeVisible({ timeout: TIMEOUTS.dialog });

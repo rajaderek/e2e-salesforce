@@ -33,6 +33,8 @@ export const TIMEOUTS = {
   // Budget khusus toast: dipakai sekali untuk menunggu MUNCUL,
   // sekali lagi untuk menunggu HILANG (auto-dismiss).
   toast: 10_000,
+  // Budget singkat untuk cek ada/tidaknya data yang mungkin belum dirender.
+  existence: 5_000,
   networkIdle: 30_000,
 } as const;
 
@@ -45,4 +47,7 @@ export const ROUTES = {
   customer: '/customer',
   kunjungan: '/transaksi/kunjungan',
   aktivitas: '/transaksi/aktivitas',
+  organization: '/organization',
+  roles: '/roles',
+  users: '/usermanagement',
 } as const;

@@ -47,6 +47,28 @@ export const DATA_PRODUK = {
   platBaja: 'Plat Baja',
 } as const;
 
+export const DATA_ORGANISASI = {
+  name: 'Megatron',
+  description: 'organisasi untuk automation',
+  prefix: 'MEg',
+  logoPath: 'tests/fixtures/files/megatron.webp',
+} as const;
+
+export const DATA_AKSES = {
+  name: 'Autorole',
+  description: 'role untuk automation',
+} as const;
+
+export const DATA_USER = {
+  name: 'Robot',
+  email: 'robot@lcc.com',
+  phone: '08271231231',
+  role: 'Autorole',
+  organization: 'Megatron',
+  password: 'tahubulat',
+  photoPath: 'tests/fixtures/files/megatron.webp',
+} as const;
+
 export const DATA_CUSTOMER = {
   companyName: 'PT Automation Test',
   contactName: 'Playwright',
@@ -261,4 +283,17 @@ export const UI_TEXT = {
   deleteProspectConfirm: 'Hapus Prospect?',
   deleteProspectConfirmButton: 'Ya, Hapus',
   prospectDeleted: 'Data berhasil dihapus',
+  manageOrganizationHeading: 'Manajemen Organisasi',
+  addOrganizationDialog: 'Tambah Organisasi',
+  createOrganizationConfirm: 'Buat Organisasi Baru?',
+  completeOrganizationSuccess: 'Organisasi berhasil ditambahkan',
+  rolesHeading: 'Role & Access Control',
+  addRoleButton: 'Tambah Role',
+  createRoleDialog: 'Buat Role Baru',
+  createRoleSuccess: 'Role berhasil dibuat',
+  usersHeading: 'User Management',
+  addUserButton: 'Tambah Pengguna',
+  createUserDialog: 'Tambah User Baru',
+  createUserConfirm: 'Tambah User Baru?',
+  createUserSuccess: 'User berhasil dibuat',
 } as const;

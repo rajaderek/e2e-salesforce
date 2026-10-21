@@ -50,65 +50,61 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 
 
-  /* Configure projects for major browsers */
+  /*
+   * Urutan running all test:
+   * login -> organisasi -> access -> user -> sisanya.
+   *
+   * Playwright tidak menjamin urutan antar file dalam satu project.
+   * Karena itu tiap file prioritas dijadikan project sendiri dan
+   * dirangkai lewat `dependencies`, sehingga project berikutnya baru
+   * jalan setelah project sebelumnya selesai.
+   *
+   * Untuk run file tertentu tanpa ikut dependencies:
+   *   npx playwright test tests/specs/kelola_user/access.spec.ts --no-deps
+   */
   projects: [
     {
-      name: 'chromium',
+      name: '01-login',
+      // File prioritas dijalankan berurutan agar tidak saling ganggu sesi login/data.
+      fullyParallel: false,
+      testMatch: '**/specs/authentication/login.spec.ts',
       use: { ...devices['Desktop Chrome'] },
     },
-
-    // {
-    //   name: 'supervisor',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     storageState: './tests/auth/supervisor.json'
-    //   }
-    // },
-    // {
-    //   name: 'director',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     storageState: './tests/auth/director.json'
-    //   }
-    // },
-    // {
-    //   name: 'hr',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     storageState: './tests/auth/hr.json'
-    //   }
-    // }
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop  Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: '02-organisasi',
+      // File prioritas dijalankan berurutan agar tidak saling ganggu sesi login/data.
+      fullyParallel: false,
+      testMatch: '**/specs/kelola_user/organisasi.spec.ts',
+      dependencies: ['01-login'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: '03-access',
+      // File prioritas dijalankan berurutan agar tidak saling ganggu sesi login/data.
+      fullyParallel: false,
+      testMatch: '**/specs/kelola_user/access.spec.ts',
+      dependencies: ['02-organisasi'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: '04-user',
+      // File prioritas dijalankan berurutan agar tidak saling ganggu sesi login/data.
+      fullyParallel: false,
+      testMatch: '**/specs/kelola_user/user.spec.ts',
+      dependencies: ['03-access'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: '05-others',
+      testIgnore: [
+        '**/specs/authentication/login.spec.ts',
+        '**/specs/kelola_user/organisasi.spec.ts',
+        '**/specs/kelola_user/access.spec.ts',
+        '**/specs/kelola_user/user.spec.ts',
+      ],
+      dependencies: ['04-user'],
+      use: { ...devices['Desktop Chrome'] },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
